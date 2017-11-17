@@ -13,10 +13,22 @@ public class WorkloadSimulator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for(int i=10;i<20;i+=10) {
+		try {
+			Files.write(Paths.get("workload.txt"), ("").getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(int i=10;i<30;i+=10) {
 			new Executor(i).run();
 			try {
 				Files.write(Paths.get("log.txt"), "\n".getBytes(),StandardOpenOption.APPEND);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				Files.write(Paths.get("workload.txt"), (Integer.toString(i)+"\n").getBytes(),StandardOpenOption.APPEND);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

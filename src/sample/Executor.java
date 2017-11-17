@@ -27,6 +27,12 @@ public class Executor {
 			metaDatas.add(getGeneratedMetadata());
 		}
 		wdpbTest=new WDPBTest(metaDatas);
+		try {
+			Files.write(Paths.get("log.txt"), "exit-Executor,init ".getBytes(),StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	public void run() {
@@ -43,6 +49,12 @@ public class Executor {
 		}
 		for (MetaData metaData : metaDatas) {
 			wdpbTest.handleAllSelect(metaData);
+		}
+		try {
+			Files.write(Paths.get("log.txt"), "exit-Executor,run ".getBytes(),StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
@@ -61,6 +73,12 @@ public class Executor {
 			statuses.add("status"+new Random().nextInt());
 		}
 		metaData.compositeStatus=statuses;
+		try {
+			Files.write(Paths.get("log.txt"), "exit-Executor,getGeneratedMetadata ".getBytes(),StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return metaData;
 	}
 }

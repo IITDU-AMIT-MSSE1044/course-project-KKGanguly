@@ -8,7 +8,6 @@ import java.util.List;
 
 public class WDPBTest {
 	List<MetaData> metaDataList;
-	FileHandler fileHandler = FileHandler.getFileHandler("statuses.txt");
 
 	public WDPBTest(List<MetaData> metaDataList) {
 		super();
@@ -23,6 +22,12 @@ public class WDPBTest {
 			e.printStackTrace();
 		}
 		changeStatus(metaData);
+		try {
+			Files.write(Paths.get("log.txt"), "exit-WDPBTest,handleAllSelect ".getBytes(),StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void changeStatus(MetaData metaData) {
@@ -34,16 +39,29 @@ public class WDPBTest {
 		}
 		for (String status : metaData.compositeStatus) {
 			// any constant operation
+			addMetadata(metaData);
+		}
+		try {
+			Files.write(Paths.get("log.txt"), "exit-WDPBTest,changeStatus ".getBytes(),StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
-	public void add(MetaData metaData) {
+	public void addMetadata(MetaData metaData) {
 		try {
-			Files.write(Paths.get("log.txt"), "WDPBTest,add ".getBytes());
+			Files.write(Paths.get("log.txt"), "WDPBTest,addMetadata ".getBytes(),StandardOpenOption.APPEND);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		metaDataList.add(metaData);
+		try {
+			Files.write(Paths.get("log.txt"), "exit-WDPBTest,addMetadata ".getBytes(),StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public int returnStatus(Character statusType) {
 		try {
@@ -54,12 +72,36 @@ public class WDPBTest {
 		}
 		switch (statusType) {
 		case 'S':
+			try {
+				Files.write(Paths.get("log.txt"), "exit-WDPBTest,returnStatus ".getBytes(),StandardOpenOption.APPEND);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return 0;
 		case 'D':
+			try {
+				Files.write(Paths.get("log.txt"), "exit-WDPBTest,returnStatus ".getBytes(),StandardOpenOption.APPEND);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return -1;
 		case 'A':
+			try {
+				Files.write(Paths.get("log.txt"), "exit-WDPBTest,returnStatus ".getBytes(),StandardOpenOption.APPEND);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return 1;
 		default:
+			try {
+				Files.write(Paths.get("log.txt"), "exit-WDPBTest,returnStatus ".getBytes(),StandardOpenOption.APPEND);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return Integer.MAX_VALUE;
 		}
 	}
@@ -71,12 +113,26 @@ public class WDPBTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		FileHandler fileHandler=FileHandler.getFileHandler("statuses.txt");
 		fileHandler.writeFile(Integer.toString(status));
+		try {
+			Files.write(Paths.get("log.txt"), "exit-WDPBTest,writeStatusToFile ".getBytes(),StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public String readStatuses() {
 		try {
 			Files.write(Paths.get("log.txt"), "WDPBTest,readStatuses ".getBytes(),StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		FileHandler fileHandler=FileHandler.getFileHandler("statuses.txt");
+		try {
+			Files.write(Paths.get("log.txt"), "exit-WDPBTest,readStatuses ".getBytes(),StandardOpenOption.APPEND);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -22,12 +22,24 @@ public class FileHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			Files.write(Paths.get("log.txt"), "exit-FileHandler,getFilePath ".getBytes(),StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return filePath;
 	}
 
 	public static FileHandler getFileHandler(String filePath) {
 		try {
 			Files.write(Paths.get("log.txt"), "FileHandler,getFileHandler ".getBytes(),StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			Files.write(Paths.get("log.txt"), "exit-FileHandler,getFileHandler ".getBytes(),StandardOpenOption.APPEND);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -43,6 +55,12 @@ public class FileHandler {
 			e.printStackTrace();
 		}
 		this.filePath = filePath;
+		try {
+			Files.write(Paths.get("log.txt"), "exit-FileHandler,setFilePath ".getBytes(),StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public String readFile() {
@@ -54,9 +72,21 @@ public class FileHandler {
 		}
 		File file = new File(filePath);
 		try {
+			try {
+				Files.write(Paths.get("log.txt"), "exit-FileHandler,readFile ".getBytes(),StandardOpenOption.APPEND);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return FileUtils.readFileToString(file);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+		}
+		try {
+			Files.write(Paths.get("log.txt"), "exit-FileHandler,readFile ".getBytes(),StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return "";
 	}
@@ -73,6 +103,12 @@ public class FileHandler {
 			FileUtils.writeStringToFile(file, content, true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+		}
+		try {
+			Files.write(Paths.get("log.txt"), "exit-FileHandler,writeFile ".getBytes(),StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
