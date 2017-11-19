@@ -15,6 +15,7 @@ public class BlackListedFunctions {
 		blackListedFunctionNames.add("get");
 		blackListedFunctionNames.add("add");
 		blackListedFunctionNames.add("printStackTrace");
+		blackListedFunctionNames.add("append");
 	}
 	public boolean contains(String name) {
 		return blackListedFunctionNames.contains(name);

@@ -1,41 +1,43 @@
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
 import sample.Executor;
+import sample.GlobalInstrumentationString;
+import util.FileUtil;
 
 public class WorkloadSimulator {
 	public static void simulate() {
-		try {
-			Files.write(Paths.get("log.txt"), ("").getBytes());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			Files.write(Paths.get("workload.txt"), ("").getBytes());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		for(int i=10;i<30;i+=10) {
+		FileUtil fileUtil = FileUtil.getFileUtil("log.txt");
+		FileUtil fileUtilWorkload = FileUtil.getFileUtil("workload.txt");
+		fileUtil.clearFile();
+		fileUtilWorkload.clearFile();
+		for (int i = 10; i < 2000; i += 10) {
 			new Executor(i).run();
-			try {
-				Files.write(Paths.get("log.txt"), "\n".getBytes(),StandardOpenOption.APPEND);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			GlobalInstrumentationString.contentBuffer.append("\n");
+			if(i%20==0) {
+				try {
+					fileUtil.apppendLargeFile(GlobalInstrumentationString.contentBuffer.toString());
+					GlobalInstrumentationString.contentBuffer=new StringBuffer();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			try {
-				Files.write(Paths.get("workload.txt"), (Integer.toString(i)+"\n").getBytes(),StandardOpenOption.APPEND);
-			} catch (IOException e) {
+				fileUtilWorkload.apppendLargeFile(Integer.toString(i) + "\n");
+			} catch (IOException e1) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				e1.printStackTrace();
 			}
 			System.out.println(i);
 		}
+		try {
+			fileUtil.apppendLargeFile(GlobalInstrumentationString.contentBuffer.toString());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
+	
 	public static void main(String[] args) {
 		simulate();
 	}

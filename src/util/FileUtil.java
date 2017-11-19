@@ -1,6 +1,11 @@
 package util;
+
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -34,12 +39,24 @@ public class FileUtil {
 		}
 		return "";
 	}
+
+	public void apppendLargeFile(String content) throws IOException {
+		byte[] strBytes = content.getBytes();
+		FileChannel channel = new FileOutputStream(filePath, true).getChannel();
+		ByteBuffer buffer = ByteBuffer.allocate(strBytes.length);
+		buffer.put(strBytes);
+		buffer.flip();
+		channel.write(buffer);
+		channel.close();
+	}
+
 	public void makeWholePath() {
 		File file = new File(filePath);
-		if(!file.getParentFile().exists()) {
+		if (!file.getParentFile().exists()) {
 			file.getParentFile().mkdirs();
 		}
 	}
+
 	public void appendFile(String content) {
 		File file = new File(filePath);
 		try {
@@ -58,6 +75,7 @@ public class FileUtil {
 			// TODO Auto-generated catch block
 		}
 	}
+
 	public void write(String content) {
 		File file = new File(filePath);
 		try {
@@ -66,6 +84,7 @@ public class FileUtil {
 			// TODO Auto-generated catch block
 		}
 	}
+
 	public boolean isFileEmpty() {
 		File file = new File(filePath);
 		return !file.exists() || file.length() == 0;
@@ -79,16 +98,20 @@ public class FileUtil {
 			// TODO Auto-generated catch block
 		}
 	}
+
 	public static void copy(File src, File dest) throws IOException {
 		FileUtils.copyFileToDirectory(src, dest);
 	}
+
 	public static void move(File src, File dest) throws IOException {
 		FileUtils.moveFileToDirectory(src, dest, true);
 	}
+
 	public boolean delete() throws IOException {
 		File file = new File(filePath);
 		return file.delete();
 	}
+
 	public boolean isFileAvailable() {
 		return new File(filePath).exists();
 	}

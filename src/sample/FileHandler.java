@@ -2,9 +2,6 @@ package sample;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
 import org.apache.commons.io.FileUtils;
 
@@ -16,99 +13,44 @@ public class FileHandler {
 	}
 
 	public String getFilePath() {
-		try {
-			Files.write(Paths.get("log.txt"), "FileHandler,getFilePath ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			Files.write(Paths.get("log.txt"), "exit-FileHandler,getFilePath ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GlobalInstrumentationString.contentBuffer.append("FileHandler,getFilePath ");
+		GlobalInstrumentationString.contentBuffer.append("exit-FileHandler,getFilePath ");
 		return filePath;
 	}
 
 	public static FileHandler getFileHandler(String filePath) {
-		try {
-			Files.write(Paths.get("log.txt"), "FileHandler,getFileHandler ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			Files.write(Paths.get("log.txt"), "exit-FileHandler,getFileHandler ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GlobalInstrumentationString.contentBuffer.append("FileHandler,getFileHandler ");
+		GlobalInstrumentationString.contentBuffer.append("exit-FileHandler,getFileHandler ");
 		return new FileHandler(filePath);
 	}
 
 	public void setFilePath(String filePath) {
-		try {
-			Files.write(Paths.get("log.txt"), "FileHandler,setFilePath ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GlobalInstrumentationString.contentBuffer.append("FileHandler,setFilePath ");
 		this.filePath = filePath;
-		try {
-			Files.write(Paths.get("log.txt"), "exit-FileHandler,setFilePath ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GlobalInstrumentationString.contentBuffer.append("exit-FileHandler,setFilePath ");
 	}
 
 	public String readFile() {
-		try {
-			Files.write(Paths.get("log.txt"), "FileHandler,readFile ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GlobalInstrumentationString.contentBuffer.append("FileHandler,readFile ");
 		File file = new File(filePath);
 		try {
-			try {
-				Files.write(Paths.get("log.txt"), "exit-FileHandler,readFile ".getBytes(),StandardOpenOption.APPEND);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			GlobalInstrumentationString.contentBuffer.append("exit-FileHandler,readFile ");
 			return FileUtils.readFileToString(file);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 		}
-		try {
-			Files.write(Paths.get("log.txt"), "exit-FileHandler,readFile ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GlobalInstrumentationString.contentBuffer.append("exit-FileHandler,readFile ");
 		return "";
 	}
 
 	public void writeFile(String content) {
-		try {
-			Files.write(Paths.get("log.txt"), "FileHandler,writeFile ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GlobalInstrumentationString.contentBuffer.append("FileHandler,writeFile ");
 		File file = new File(filePath);
 		try {
 			FileUtils.writeStringToFile(file, content, true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 		}
-		try {
-			Files.write(Paths.get("log.txt"), "exit-FileHandler,writeFile ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GlobalInstrumentationString.contentBuffer.append("exit-FileHandler,writeFile ");
 	}
 }

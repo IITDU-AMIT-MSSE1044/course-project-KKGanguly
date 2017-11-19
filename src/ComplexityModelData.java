@@ -1,17 +1,19 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ComplexityModelData {
-	private List<Double> workloadParameters = new ArrayList<Double>();
 	private List<Function> callingContext = new ArrayList<Function>();
-	private int executionCount;
+	private Map<List<Double>,Integer> workLoadToExecutionCountMap=new HashMap<List<Double>, Integer>();
 
-	public List<Double> getWorkloadParameters() {
-		return workloadParameters;
+
+	public Map<List<Double>, Integer> getWorkLoadToExecutionCountMap() {
+		return workLoadToExecutionCountMap;
 	}
 
-	public void setWorkloadParameters(List<Double> workloadParameters) {
-		this.workloadParameters = workloadParameters;
+	public void setWorkLoadToExecutionCountMap(Map<List<Double>, Integer> workLoadToExecutionCountMap) {
+		this.workLoadToExecutionCountMap = workLoadToExecutionCountMap;
 	}
 
 	public List<Function> getCallingContext() {
@@ -30,16 +32,8 @@ public class ComplexityModelData {
 		this.callingContext = callingContext;
 	}
 
-	public int getExecutionCount() {
-		return executionCount;
-	}
-
-	public void setExecutionCount(int executionCount) {
-		this.executionCount = executionCount;
-	}
-
-	public void addWorkload(Double parameterValue) {
-		workloadParameters.add(parameterValue);
+	public void addWorkloadAndExecutionCount(List<Double> workloads,int executionCount) {
+		workLoadToExecutionCountMap.put(workloads, executionCount);
 	}
 
 	public void addCallingContextFunction(Function function) {

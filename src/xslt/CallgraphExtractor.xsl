@@ -12,11 +12,11 @@
             <xsl:otherwise>
             <xsl:if test="src:name/src:name[1]">
 				<xsl:variable name="varname" select="src:name/src:name[1]"/>
-				<xsl:if test="src:name/src:name[2]!='' and /src:unit//src:decl[src:name[1]=$varname]/src:type/src:name!=''">
-					<xsl:message><xsl:value-of select="src:name/src:name[2]"/>,<xsl:value-of select="/src:unit//src:decl[src:name[1]=$varname]/src:type/src:name"/></xsl:message>
+				<xsl:if test="src:name/src:name[last()]!='' and /src:unit//src:decl[src:name[1]=$varname]/src:type/src:name!=''">
+					<xsl:message><xsl:value-of select="src:name/src:name[last()]"/>,<xsl:value-of select="/src:unit//src:decl[src:name[1]=$varname]/src:type/src:name"/></xsl:message>
 				</xsl:if >
 				<xsl:if test="not(/src:unit//src:decl[src:name[1]=$varname])">
-					<xsl:message><xsl:value-of select="src:name/src:name[2]"/>,<xsl:value-of select="src:name/src:name[1]"/></xsl:message>
+					<xsl:message><xsl:value-of select="src:name/src:name[last()]"/>,<xsl:value-of select="src:name/src:name[1]"/></xsl:message>
 				</xsl:if >
 			</xsl:if>
 			<xsl:if test="not(src:name/src:name[1])">

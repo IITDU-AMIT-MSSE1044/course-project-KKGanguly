@@ -1,9 +1,9 @@
 package sample;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,56 +16,30 @@ public class Executor {
 	}
 	private void init() {
 		// TODO Auto-generated method stub
-		try {
-			Files.write(Paths.get("log.txt"), "Executor,init ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GlobalInstrumentationString.contentBuffer.append("Executor,init ");
 		List<MetaData> metaDatas=new ArrayList<MetaData>();
 		for(int i=0;i<numberOfMetadatas;i++) {
 			metaDatas.add(getGeneratedMetadata());
 		}
 		wdpbTest=new WDPBTest(metaDatas);
-		try {
-			Files.write(Paths.get("log.txt"), "exit-Executor,init ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		GlobalInstrumentationString.contentBuffer.append("exit-Executor,init ");
 	}
 	public void run() {
-		try {
-			Files.write(Paths.get("log.txt"), "Executor,run ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GlobalInstrumentationString.contentBuffer.append("Executor,run ");
 		init();
 		List<MetaData> metaDatas=new ArrayList<MetaData>();
 		for(int i=0;i<numberOfMetadatas;i++) {
 			metaDatas.add(getGeneratedMetadata());
 		}
-		for (MetaData metaData : metaDatas) {
-			wdpbTest.handleAllSelect(metaData);
+		for (int i=0;i<numberOfMetadatas;i++) {
+			MetaData metaData=metaDatas.get(i);
+			wdpbTest.handleAllSelect(metaData,numberOfMetadatas);
 		}
-		try {
-			Files.write(Paths.get("log.txt"), "exit-Executor,run ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		GlobalInstrumentationString.contentBuffer.append("exit-Executor,run ");
 	}
 	
 	private MetaData getGeneratedMetadata() {
-		try {
-			Files.write(Paths.get("log.txt"), "Executor,getGeneratedMetadata ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GlobalInstrumentationString.contentBuffer.append("Executor,getGeneratedMetadata ");
 		List<String> statuses=new ArrayList<String>();
 		MetaData metaData=new MetaData();
 		metaData.itemName="item"+new Random().nextInt();
@@ -73,12 +47,16 @@ public class Executor {
 			statuses.add("status"+new Random().nextInt());
 		}
 		metaData.compositeStatus=statuses;
-		try {
-			Files.write(Paths.get("log.txt"), "exit-Executor,getGeneratedMetadata ".getBytes(),StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GlobalInstrumentationString.contentBuffer.append("exit-Executor,getGeneratedMetadata ");
 		return metaData;
+	}
+	public static void apppendLargeFile(String content,String filePath) throws IOException {
+		byte[] strBytes = content.getBytes();
+		FileChannel channel = new FileOutputStream(filePath, true).getChannel();
+		ByteBuffer buffer = ByteBuffer.allocate(strBytes.length);
+		buffer.put(strBytes);
+		buffer.flip();
+		channel.write(buffer);
+		channel.close();
 	}
 }
