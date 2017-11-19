@@ -1,72 +1,147 @@
 Function init Class Executor
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 add,List<MetaData>
 getGeneratedMetadata,Executor
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 Function run Class Executor
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 init,Executor
 add,List<MetaData>
 getGeneratedMetadata,Executor
 get,List<MetaData>
 handleAllSelect,WDPBTest
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 Function getGeneratedMetadata Class Executor
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 add,List<String>
 append,GlobalInstrumentationString
-Function apppendLargeFile Class Executor
-getBytes,String
-allocate,ByteBuffer
-put,ByteBuffer
-flip,ByteBuffer
-write,FileChannel
-close,FileChannel
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 Function getFilePath Class FileHandler
 append,GlobalInstrumentationString
 append,GlobalInstrumentationString
+nanoTime,System
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 Function getFileHandler Class FileHandler
 append,GlobalInstrumentationString
 append,GlobalInstrumentationString
+nanoTime,System
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 Function setFilePath Class FileHandler
 append,GlobalInstrumentationString
 append,GlobalInstrumentationString
+nanoTime,System
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 Function readFile Class FileHandler
 append,GlobalInstrumentationString
 append,GlobalInstrumentationString
+nanoTime,System
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 readFileToString,FileUtils
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 Function writeFile Class FileHandler
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 writeStringToFile,FileUtils
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 Function handleAllSelect Class WDPBTest
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 changeStatus,WDPBTest
 addMetadata,WDPBTest
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 Function changeStatus Class WDPBTest
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 addMetadata,WDPBTest
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 Function addMetadata Class WDPBTest
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 add,List<MetaData>
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 Function returnStatus Class WDPBTest
 append,GlobalInstrumentationString
 append,GlobalInstrumentationString
+nanoTime,System
 append,GlobalInstrumentationString
 append,GlobalInstrumentationString
 append,GlobalInstrumentationString
+nanoTime,System
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 Function writeStatusToFile Class WDPBTest
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 getFileHandler,FileHandler
 writeFile,FileHandler
 toString,Integer
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 Function readStatuses Class WDPBTest
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 getFileHandler,FileHandler
 append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+append,GlobalInstrumentationString
+nanoTime,System
 readFile,FileHandler

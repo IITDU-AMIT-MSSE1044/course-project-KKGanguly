@@ -13,7 +13,6 @@ import util.FileUtil;
 
 public class ComplexityModelDataGenerator {
 	private CallGraph callGraph;
-	private List<String> executionLog = new ArrayList<String>();
 	private List<String> workloadLog = new ArrayList<String>();
 	private static final String LOG = "log.txt";
 	private static final String WORKLOADLOG = "workload.txt";

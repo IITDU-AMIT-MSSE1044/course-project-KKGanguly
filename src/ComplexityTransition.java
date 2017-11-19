@@ -38,6 +38,7 @@ public class ComplexityTransition {
 	public void setChildrenComplexity(double childrenComplexity) {
 		this.childrenComplexity = childrenComplexity;
 	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

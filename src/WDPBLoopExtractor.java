@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ public class WDPBLoopExtractor {
 	private static final String TRAINING_RESULT_FILE="training/complexity.txt";
 	private Map<String,Double> complexityMap=new HashMap<String, Double>();
 	private List<ComplexityTransition> complexityTransitions=new ArrayList<ComplexityTransition>();
-	public void extractWDPBloop() {
+	public List<ComplexityTransition> extractWDPBloop() {
 		FileUtil fileUtil=FileUtil.getFileUtil(TRAINING_RESULT_FILE);
 		String content=fileUtil.readFile();
 		String[] lines=content.split("\n");
@@ -31,6 +32,7 @@ public class WDPBLoopExtractor {
 				if(!complexityTransitionParent.getParent().equals(complexityTransitionChild.getParent())&&complexityTransitionParent.getParentComplexity()!=complexityTransitionChild.getParentComplexity()) {
 					if(checkIfChildIsComplexityTransition(complexityTransitionParent, complexityTransitionChild.getParent(), complexityTransitionChild.getParentComplexity())) {
 						complexityTransitionParent.getChildList().add(complexityTransitionChild);
+						complexityTransitionParent.setChildrenComplexity(complexityTransitionChild.getParentComplexity());
 					}
 				}
 			}
@@ -41,9 +43,7 @@ public class WDPBLoopExtractor {
 				complexityTransitionsForWDPB.add(complexityTransition);
 			}
 		}
-		for (ComplexityTransition complexityTransition : complexityTransitionsForWDPB) {
-			System.out.println(complexityTransition.getParent()+" "+complexityTransition.getChildList());
-		}
+		return complexityTransitionsForWDPB;
 	}
 	
 	private boolean checkIfChildIsComplexityTransition(ComplexityTransition transition,String child,double complexity) {
