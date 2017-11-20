@@ -28,7 +28,7 @@ In the methodlogy, the training algorithm is single attribute. However, a multip
 
 ## Authors
 
-* **Kishan Kumar Ganguly** - *Initial work* - [PurpleBooth](https://github.com/KKGanguly)
+* **Kishan Kumar Ganguly** - *Initial work* - [KKGanguly](https://github.com/KKGanguly)
 
 
 
