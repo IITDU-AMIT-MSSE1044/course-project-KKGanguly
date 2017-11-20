@@ -47,7 +47,6 @@ public class CostTrainingDataGenerator {
 							String[] workloadArray=workload.split(",");
 							workloads.addAll(convertStringArrayToDoubleList(workloadArray));
 							complexityModelData.addWorkloadAndCost(workloads, averageCost);
-							//System.out.println(complexityModelData.getCallingContextAsString()+" "+averageCost);
 						}
 						
 				}
@@ -174,13 +173,5 @@ public class CostTrainingDataGenerator {
 			}
 			}
 		}
-	}
-	public static void main(String[] args) throws IOException, InterruptedException, CallGraphException {
-		new XSLTTransformer().transform();
-		CallGraph callGraph = new StaticCallGraphExtractor().extractCallGraph();
-		KProfileGraphBuilder graphBuilder = new KProfileGraphBuilder(callGraph);
-		callGraph = graphBuilder.buildKProfileGraph();
-/*		callGraph =new ComplexityModelDataGenerator(callGraph).generateData();
-*/		new CostTrainingDataGenerator(callGraph).buildTrainingData();
 	}
 }

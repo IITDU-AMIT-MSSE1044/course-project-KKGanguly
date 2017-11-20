@@ -1,0 +1,2 @@
+context,total_cost,contextwise_cost,percentage
+NotePadExecutor,run NotePadSimulation,selectSingleWord NotePadSimulation,searchLine NotePadSimulation,muteColor,2.860172342142857E9,9.259991971805234E8,0.32375643367237084

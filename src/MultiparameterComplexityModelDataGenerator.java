@@ -25,24 +25,23 @@ public class MultiparameterComplexityModelDataGenerator {
 
 	public CallGraph generateData() {
 		readWorkloadLog();
-		String content="";
-		Iterator<String> iterator=workloadLog.iterator();
+		String content = "";
+		Iterator<String> iterator = workloadLog.iterator();
 		try {
-			BufferedReader bufferedReader=new BufferedReader(new FileReader(new File(LOG)));
-			while((content=bufferedReader.readLine())!=null) {
-					String logEntry = content;
-					// needs customization support
-					String workload = iterator.hasNext()?iterator.next():"";
-					for (Function function : callGraph.getFunctions()) {
-						currentLogLine = new String(logEntry);
-						for (ComplexityModelData complexityModelData : function.getComplexityModelDatas()) {
-							int invocationCount = findExecutionCountUnderContext(currentLogLine,
-									complexityModelData.getCallingContext(), function);
-							List<Double> workloads = new ArrayList<Double>();
-							String[] workloadArray=workload.split(",");
-							workloads.addAll(convertStringArrayToDoubleList(workloadArray));
-							complexityModelData.addWorkloadAndExecutionCount(workloads, invocationCount);
-						}
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(LOG)));
+			while ((content = bufferedReader.readLine()) != null) {
+				String logEntry = content;
+				String workload = iterator.hasNext() ? iterator.next() : "";
+				for (Function function : callGraph.getFunctions()) {
+					currentLogLine = new String(logEntry);
+					for (ComplexityModelData complexityModelData : function.getComplexityModelDatas()) {
+						int invocationCount = findExecutionCountUnderContext(currentLogLine,
+								complexityModelData.getCallingContext(), function);
+						List<Double> workloads = new ArrayList<Double>();
+						String[] workloadArray = workload.split(",");
+						workloads.addAll(convertStringArrayToDoubleList(workloadArray));
+						complexityModelData.addWorkloadAndExecutionCount(workloads, invocationCount);
+					}
 				}
 			}
 			bufferedReader.close();
@@ -50,16 +49,16 @@ public class MultiparameterComplexityModelDataGenerator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return callGraph;
 	}
 
-	private List<Double> convertStringArrayToDoubleList(String[] stringArray){
-		List<Double> lists=new ArrayList<Double>();
+	private List<Double> convertStringArrayToDoubleList(String[] stringArray) {
+		List<Double> lists = new ArrayList<Double>();
 		for (String string : stringArray) {
 			try {
 				lists.add(Double.valueOf(string));
-			}catch(Exception exception) {
+			} catch (Exception exception) {
 				lists.add(0D);
 			}
 		}
@@ -84,18 +83,11 @@ public class MultiparameterComplexityModelDataGenerator {
 			if (callingContextFunction.equals(function)) {
 				caller = extracted;
 			}
-				
-			System.out.println(startingString);
-			System.out.println(closingString);
-			System.out.println(extracted);
-			/*extracted = extracted.substring(extracted.indexOf(startingString+" "),
-					extracted.lastIndexOf(closingString+" ") + closingString.length());*/
-			/*System.out.println(countMatches(function.getClassName() + "," + function.getName(), extracted));*/
-			
-			try{extracted = extracted.substring(extracted.indexOf(startingString+" "),
-					extracted.lastIndexOf(closingString+" ") + closingString.length());
-			System.out.println(countMatches(function.getClassName() + "," + function.getName(), extracted));
-			}catch(Exception e) {
+
+			try {
+				extracted = extracted.substring(extracted.indexOf(startingString + " "),
+						extracted.lastIndexOf(closingString + " ") + closingString.length());
+			} catch (Exception e) {
 				return 0;
 			}
 		}
@@ -118,17 +110,5 @@ public class MultiparameterComplexityModelDataGenerator {
 		}
 		return j - i;
 	}
-	public static void main(String[] args) throws IOException, InterruptedException, CallGraphException {
-		new XSLTTransformer().transform();
-		CallGraph callGraph = new StaticCallGraphExtractor().extractCallGraph();
-		KProfileGraphBuilder graphBuilder = new KProfileGraphBuilder(callGraph);
-		callGraph = graphBuilder.buildKProfileGraph();
-		callGraph =new MultiparameterComplexityModelDataGenerator(callGraph).generateData();
-/*		callGraph =new ComplexityModelDataGenerator(callGraph).generateData();
-*/		new TrainingDataBuilder(callGraph).buildTrainingDataMultiAttribute();;
-		List<ComplexityTransition> complexityTransitions=new WDPBLoopExtractor().extractWDPBloop();
-		List<CostModel> costModels=new AverageCostCalculator(callGraph).getCost();
-		CostPrediction costPrediction=new CostPrediction(complexityTransitions, costModels);
-		costPrediction.predict();
-	}
+
 }

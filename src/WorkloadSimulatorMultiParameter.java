@@ -13,8 +13,7 @@ public class WorkloadSimulatorMultiParameter {
 			"This is sample data This is sample data\n This is sample data This is sample data","This is sample data data data data data", "This is sample data data data data data \n This is sample data data data data data \n This is sample data data data data data This is sample data data data data data This is sample data data data data data \n This is sample data data data data data This is sample data data data data data",
 			"This is \n This is This isThis isThis isThis isThis isThis isThis isThis isThis isThis is \n This is \n This is","a\na",
 			"This is sample data This is sample data This is sample data This is sample data This is sample data This is sample data\n This is sample data This is sample data This is sample data This is sample data This is sample data This is sample data This is sample data This is sample data \n This is sample data This is sample data This is sample data This is sample data This is sample data This is sample data This is sample data This is sample data"));
-
-	public static void simulate() {
+	public static void simulate(int mode) {
 		FileUtil fileUtil = FileUtil.getFileUtil("log.txt");
 		FileUtil fileUtilWorkload = FileUtil.getFileUtil("workload.txt");
 		FileUtil fileUtilTotalTime = FileUtil.getFileUtil("logTotalTime.txt");
@@ -45,25 +44,22 @@ public class WorkloadSimulatorMultiParameter {
 					e1.printStackTrace();
 			}
 			
-			/*try {
-				fileUtilWorkload.apppendLargeFile(data.split("\n").length+","+data.length() + "\n");
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}*/
-			/*try {
+			if(mode==1||mode==3) {
+			try {
 				fileUtilWorkload.apppendLargeFile((data.split("\n")).length+","+data.split("\\s+").length + "\n");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}*/
+			}
+			}
+			else {
 			try {
 				fileUtilWorkload.apppendLargeFile(data.split("\n").length+ "\n");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			//System.out.println(i);
+			}
 		}
 		try {
 			fileUtil.apppendLargeFile(GlobalInstrumentationString.contentBuffer.toString());
@@ -73,8 +69,5 @@ public class WorkloadSimulatorMultiParameter {
 			e1.printStackTrace();
 		}
 	}
-	
-	public static void main(String[] args) {
-		simulate();
-	}
+
 }

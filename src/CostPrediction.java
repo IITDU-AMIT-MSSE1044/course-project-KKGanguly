@@ -9,16 +9,18 @@ import util.FileUtil;
 public class CostPrediction {
 	private List<ComplexityTransition> complexityTransitions=new ArrayList<ComplexityTransition>();
 	private List<CostModel> costModels=new ArrayList<CostModel>();
-	private static final String RESULTPATH="results/result.txt";
+	private String resultPath="results/result.txt";
 	private static final String TOTALCOSTLOG = "logTotalTime.txt";
-	private static final String COSTCOVERAGELOG = "results/coverage.txt";
+	private String costCoverageLog = "results/coverage.txt";
 	private static final String WORKLOADLOG = "workload.txt";
 	private List<String> workloadLog = new ArrayList<String>();
 
-	public CostPrediction(List<ComplexityTransition> complexityTransitions, List<CostModel> costModels) {
+	public CostPrediction(List<ComplexityTransition> complexityTransitions, List<CostModel> costModels,String resultPath,String costCoverageLog) {
 		super();
 		this.complexityTransitions = complexityTransitions;
 		this.costModels = costModels;
+		this.resultPath=resultPath;
+		this.costCoverageLog=costCoverageLog;
 	}
 	private double getTotalAverageCost() {
 		FileUtil fileUtil=FileUtil.getFileUtil(TOTALCOSTLOG);
@@ -38,10 +40,10 @@ public class CostPrediction {
 	}
 	public void predict() {
 		readWorkloadLog();
-		FileUtil fileUtil=FileUtil.getFileUtil(RESULTPATH);
+		FileUtil fileUtil=FileUtil.getFileUtil(resultPath);
 		fileUtil.makeWholePath();
 		fileUtil.clearFile();
-		FileUtil fileUtilCoverage=FileUtil.getFileUtil(COSTCOVERAGELOG);
+		FileUtil fileUtilCoverage=FileUtil.getFileUtil(costCoverageLog);
 		fileUtilCoverage.makeWholePath();
 		fileUtilCoverage.clearFile();
 		fileUtilCoverage.appendFile("context,total_cost,contextwise_cost,percentage");
@@ -62,7 +64,6 @@ public class CostPrediction {
 							}
 							else {
 								averageInvocation+=Math.pow(Long.valueOf(workload),complexityTransition.getChildrenComplexity());
-								System.out.println(averageInvocation);
 							}
 						}
 						cost=costModel.getTime()*(averageInvocation/workloadLog.size());
@@ -99,16 +100,5 @@ public class CostPrediction {
 		return lists;
 	}
 
-	public static void main(String[] args) throws IOException, InterruptedException, CallGraphException {
-		new XSLTTransformer().transform();
-		CallGraph callGraph = new StaticCallGraphExtractor().extractCallGraph();
-		KProfileGraphBuilder graphBuilder = new KProfileGraphBuilder(callGraph);
-		callGraph = graphBuilder.buildKProfileGraph();
-		callGraph =new ComplexityModelDataGenerator(callGraph).generateData();
-		new TrainingDataBuilder(callGraph).buildTrainingData();
-		List<ComplexityTransition> complexityTransitions=new WDPBLoopExtractor().extractWDPBloop();
-		List<CostModel> costModels=new AverageCostCalculator(callGraph).getCost();
-		CostPrediction costPrediction=new CostPrediction(complexityTransitions, costModels);
-		costPrediction.predict();
-	}
+	
 }

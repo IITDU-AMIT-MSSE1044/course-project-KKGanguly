@@ -14,10 +14,11 @@ public class XSLTTransformer {
 	private String sourceXMLDirectoryName="Transformed Source XMLs";
 	private String sourceDirectoryName="Transformed Source";
 	private static final String LOG = "logs/callprofile.txt";
-	public XSLTTransformer() {
+	public XSLTTransformer(String sourceDirectoryPath) {
 		source=new File(sourceDirectoryPath);
 		destination=new File(System.getProperty("user.dir"));
 		xsltResource=new File(xsltResourcePath);
+		this.sourceDirectoryPath=sourceDirectoryPath;
 	}
 	public void transform() throws IOException, InterruptedException {
 		clearLog();
@@ -26,6 +27,7 @@ public class XSLTTransformer {
 		convertToSource(destination);
 		organizeSourceXMLs(destination);
 		organizeSource(destination);
+		
 	}
 	private void clearLog() {
 		FileUtil fileUtil=FileUtil.getFileUtil(LOG);

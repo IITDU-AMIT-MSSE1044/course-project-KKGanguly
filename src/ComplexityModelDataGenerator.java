@@ -77,10 +77,6 @@ public class ComplexityModelDataGenerator {
 			if (callingContextFunction.equals(function)) {
 				caller = extracted;
 			}
-				
-			/*extracted = extracted.substring(extracted.indexOf(startingString+" "),
-					extracted.lastIndexOf(closingString+" ") + closingString.length());*/
-			/*System.out.println(countMatches(function.getClassName() + "," + function.getName(), extracted));*/
 			
 			try{
 				extracted = extracted.substring(extracted.indexOf(startingString+" "),extracted.lastIndexOf(closingString+" ") + closingString.length());

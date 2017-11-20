@@ -3,8 +3,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import util.FileUtil;
-
 public class Training {
 	private static final String TRAINING_DIRECTORY="training";
 	public void train() throws Exception {

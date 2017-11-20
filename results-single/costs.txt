@@ -1,0 +1,7 @@
+context,total_cost,contextwise_cost,percentage
+NotePadExecutor,run NotePadSimulation,selectSingleWord NotePadSimulation,searchLine NotePadSimulation,muteColor,2.851897973571429E9,2.249214826142857E9,0.7886729634041458
+NotePadExecutor,run NotePadSimulation,selectSingleWord NotePadSimulation,searchLine,2.851897973571429E9,2.851660985142857E9,0.9999169015053245
+NotePadExecutor,run NotePadSimulation,selectSingleWord NotePadSimulation,searchLine NotePadSimulation,changeColor,2.851897973571429E9,9.015425867142857E8,0.31612021014387304
+NotePadExecutor,run NotePadExecutor,addTextChunk NotePadSimulation,addText,2.851897973571429E9,6353.571428571428,2.2278396658821766E-6
+NotePadExecutor,run NotePadSimulation,selectSingleWord,2.851897973571429E9,2.851695062571429E9,0.9999288505402787
+NotePadExecutor,run NotePadExecutor,addTextChunk,2.851897973571429E9,32522.571428571428,1.14038341237865E-5

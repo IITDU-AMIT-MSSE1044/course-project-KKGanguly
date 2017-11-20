@@ -14,8 +14,6 @@ public class KProfileGraphBuilder {
 	private void buildRecursively(Function callingContextNode) {
 		// TODO Auto-generated method stub
 		for (Function function : callingContextNode.getCalledFunctions()) {
-			/*System.out.println(currentNode.getName());
-			System.out.println("CALLED:"+function.getName());*/
 			if(callingContextNode.getComplexityModelDatas().isEmpty()) {
 				ComplexityModelData complexityModelData=new ComplexityModelData();
 				complexityModelData.addCallingContextFunction(callingContextNode);

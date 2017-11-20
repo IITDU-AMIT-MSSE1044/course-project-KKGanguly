@@ -1,8 +1,0 @@
-NotePadExecutor,run NotePadSimulation,selectSingleWord.csv,c(3, 1, 2, 4),1,
-
-NotePadExecutor,run NotePadSimulation,selectSingleWord.csv,c(1, 1, 1, 1),1,
-
-NotePadExecutor,run NotePadSimulation,selectSingleWord.csv,c(3, 1, 2, 4),1,
-
-NotePadExecutor,run NotePadSimulation,selectSingleWord.csv,c(1, 1, 1, 1),1,
-

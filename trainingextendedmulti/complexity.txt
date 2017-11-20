@@ -1,1 +1,7 @@
+NotePadExecutor,run NotePadExecutor,addTextChunk NotePadSimulation,addText.csv	1
+NotePadExecutor,run NotePadExecutor,addTextChunk.csv	1
+NotePadExecutor,run NotePadSimulation,selectSingleWord NotePadSimulation,searchLine NotePadSimulation,changeColor.csv	1
+NotePadExecutor,run NotePadSimulation,selectSingleWord NotePadSimulation,searchLine NotePadSimulation,muteColor.csv	2
+NotePadExecutor,run NotePadSimulation,selectSingleWord NotePadSimulation,searchLine.csv	1
+NotePadExecutor,run NotePadSimulation,selectSingleWord.csv	1
 

@@ -34,7 +34,6 @@ public class WorkloadSimulator {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			//System.out.println(i);
 		}
 		try {
 			fileUtil.apppendLargeFile(GlobalInstrumentationString.contentBuffer.toString());

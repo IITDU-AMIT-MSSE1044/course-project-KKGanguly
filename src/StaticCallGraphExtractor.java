@@ -1,13 +1,17 @@
-import java.io.IOException;
-
 import util.FileUtil;
 
 public class StaticCallGraphExtractor implements CallGraphExtractor {
 	private static final String LOG = "logs/callprofile.txt";
-	private static final String ROOTNAME = "run";
-	private static final String ROOTCLASSNAME = "NotePadExecutor";
+	private String rootName = "run";
+	private String rootClassName = "NotePadExecutor";
 	private CallGraph callGraph = new CallGraph();
 	private BlackListedFunctions BlackListedFunctions = new BlackListedFunctions();
+	
+	public StaticCallGraphExtractor(String rootName, String rootClassName) {
+		super();
+		this.rootName = rootName;
+		this.rootClassName = rootClassName;
+	}
 
 	@Override
 	public CallGraph extractCallGraph() throws CallGraphException {
@@ -54,22 +58,11 @@ public class StaticCallGraphExtractor implements CallGraphExtractor {
 
 	private Function findCallGraphRoot() {
 		for (Function function : callGraph.getFunctions()) {
-			if (function.getName().equals(ROOTNAME) && function.getClassName().equals(ROOTCLASSNAME)) {
+			if (function.getName().equals(rootName) && function.getClassName().equals(rootClassName)) {
 				return function;
 			}
 		}
 		return null;
 	}
 
-	public static void main(String[] args) throws IOException, InterruptedException, CallGraphException {
-		new XSLTTransformer().transform();
-		CallGraph callGraph = new StaticCallGraphExtractor().extractCallGraph();
-		for (Function function : callGraph.getFunctions()) {
-			System.out.println("FUNCTION:"+function.getName());
-			for (Function calledFunctions : function.getCalledFunctions()) {
-				System.out.println("CALLED: " + calledFunctions.getName());
-			}
-		}
-		System.out.println(callGraph.getRoot().getName());
-	}
 }

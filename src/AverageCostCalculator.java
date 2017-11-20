@@ -21,22 +21,23 @@ public class AverageCostCalculator {
 	private static final String LOG = "logTime.txt";
 	private static final String WORKLOADLOG = "workload.txt";
 	private double totalCost;
-	private static final String REALCOSTLOG = "results/costs.txt";
+	private String realCostLog = "results-single/costs.txt";
 	private String currentLogLine;
 	private Map<String, Double> costModel=new HashMap<String, Double>();
 	private Map<String, Double> totalCostModel=new HashMap<String, Double>();
 	private static final String TOTALCOSTLOG = "logTotalTime.txt";
 	private int numRows;
 	private List<CostModel> costs=new ArrayList<CostModel>();
-	public AverageCostCalculator(CallGraph callGraph) {
+	public AverageCostCalculator(CallGraph callGraph,String realCostLog) {
 		super();
 		this.callGraph = callGraph;
+		this.realCostLog=realCostLog;
 	}
 	
 	public List<CostModel> getCost() {
 		readWorkloadLog();
 		String content="";
-		FileUtil fileUtilCoverage=FileUtil.getFileUtil(REALCOSTLOG);
+		FileUtil fileUtilCoverage=FileUtil.getFileUtil(realCostLog);
 		fileUtilCoverage.makeWholePath();
 		fileUtilCoverage.clearFile();
 		fileUtilCoverage.appendFile("context,total_cost,contextwise_cost,percentage");
@@ -45,7 +46,6 @@ public class AverageCostCalculator {
 			BufferedReader bufferedReader=new BufferedReader(new FileReader(new File(LOG)));
 			while((content=bufferedReader.readLine())!=null) {
 					String logEntry = content;
-					// needs customization support
 					for (Function function : callGraph.getFunctions()) {
 						currentLogLine = new String(logEntry);
 						for (ComplexityModelData complexityModelData : function.getComplexityModelDatas()) {
@@ -61,8 +61,6 @@ public class AverageCostCalculator {
 								totalCostModel.put(context,(totalCost+ totalCostModel.get(context)));
 								
 							}
-							//complexityModelData.addWorkloadAndExecutionCount(workloads, invocationCount);
-							//System.out.println();
 						}
 						
 				}
@@ -166,12 +164,4 @@ public class AverageCostCalculator {
 		return j!=0?(cost/(double)j):0.0;
 	}
 	
-	public static void main(String[] args) throws IOException, InterruptedException, CallGraphException {
-		new XSLTTransformer().transform();
-		CallGraph callGraph = new StaticCallGraphExtractor().extractCallGraph();
-		KProfileGraphBuilder graphBuilder = new KProfileGraphBuilder(callGraph);
-		callGraph = graphBuilder.buildKProfileGraph();
-/*		callGraph =new ComplexityModelDataGenerator(callGraph).generateData();
-*/		new AverageCostCalculator(callGraph).getCost();
-	}
 }
