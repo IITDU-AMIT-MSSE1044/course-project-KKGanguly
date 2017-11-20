@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class ComplexityModelData {
 	private List<Function> callingContext = new ArrayList<Function>();
-	private Map<List<Double>,Integer> workLoadToExecutionCountMap=new HashMap<List<Double>, Integer>();
-
+	private Map<List<Double>, Integer> workLoadToExecutionCountMap = new HashMap<List<Double>, Integer>();
+	private Map<List<Double>, Double> workLoadToCostMap = new HashMap<List<Double>, Double>();
 
 	public Map<List<Double>, Integer> getWorkLoadToExecutionCountMap() {
 		return workLoadToExecutionCountMap;
@@ -18,6 +18,14 @@ public class ComplexityModelData {
 
 	public List<Function> getCallingContext() {
 		return callingContext;
+	}
+
+	public Map<List<Double>, Double> getWorkLoadToCostMap() {
+		return workLoadToCostMap;
+	}
+
+	public void setWorkLoadToCostMap(Map<List<Double>, Double> workLoadToCostMap) {
+		this.workLoadToCostMap = workLoadToCostMap;
 	}
 
 	public String getCallingContextAsString() {
@@ -32,8 +40,12 @@ public class ComplexityModelData {
 		this.callingContext = callingContext;
 	}
 
-	public void addWorkloadAndExecutionCount(List<Double> workloads,int executionCount) {
+	public void addWorkloadAndExecutionCount(List<Double> workloads, int executionCount) {
 		workLoadToExecutionCountMap.put(workloads, executionCount);
+	}
+
+	public void addWorkloadAndCost(List<Double> workloads, double cost) {
+		workLoadToCostMap.put(workloads, cost);
 	}
 
 	public void addCallingContextFunction(Function function) {

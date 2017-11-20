@@ -17,6 +17,10 @@ public class BlackListedFunctions {
 		blackListedFunctionNames.add("printStackTrace");
 		blackListedFunctionNames.add("append");
 		blackListedFunctionNames.add("nanoTime");
+		blackListedFunctionNames.add("split");
+		blackListedFunctionNames.add("equals");
+		blackListedFunctionNames.add("size");
+		blackListedFunctionNames.add("sleep");
 	}
 	public boolean contains(String name) {
 		return blackListedFunctionNames.contains(name);

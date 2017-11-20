@@ -1,0 +1,5 @@
+NotePadExecutor,run .csv	6.48695567642004
+NotePadExecutor,run NotePadExecutor,addTextChunk .csv	4.63749757395991
+NotePadExecutor,run NotePadSimulation,selectSingleWord .csv	6.9780320465202
+NotePadExecutor,run NotePadSimulation,selectSingleWord NotePadSimulation,searchLine .csv	3.52776532238329
+

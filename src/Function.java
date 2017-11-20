@@ -7,7 +7,7 @@ public class Function {
 	private List<Function> calledFunctions = new ArrayList<Function>();
 	private List<Function> calledBy = new ArrayList<Function>();
 	private List<ComplexityModelData> complexityModelDatas = new ArrayList<ComplexityModelData>();
-
+	
 	public String getName() {
 		return name;
 	}

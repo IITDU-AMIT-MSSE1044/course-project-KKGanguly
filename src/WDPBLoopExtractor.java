@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import util.FileUtil;
@@ -27,16 +28,37 @@ public class WDPBLoopExtractor {
 			complexityTransitions.add(complexityTransition);
 			}
 		}
-		for (ComplexityTransition complexityTransitionParent : complexityTransitions) {
-			for (ComplexityTransition complexityTransitionChild : complexityTransitions) {
-				if(!complexityTransitionParent.getParent().equals(complexityTransitionChild.getParent())&&complexityTransitionParent.getParentComplexity()!=complexityTransitionChild.getParentComplexity()) {
+		List<ComplexityTransition> complexityTransitionChildren=new ArrayList<ComplexityTransition>(complexityTransitions);
+		ListIterator<ComplexityTransition> iter = complexityTransitions.listIterator();
+	
+		while(iter.hasNext()){
+			ComplexityTransition complexityTransitionParent=iter.next();
+			ListIterator<ComplexityTransition> iterChild = complexityTransitionChildren.listIterator();
+			while(iterChild.hasNext()){
+				ComplexityTransition complexityTransitionChild=iterChild.next();
+				//System.out.println(complexityTransitionParent.getParent()+" "+complexityTransitionParent.getParentComplexity());
+				//System.out.println(complexityTransitionChild.getParent()+" "+complexityTransitionChild.getParentComplexity());
+				if(complexityTransitionParent.getParent().equals(complexityTransitionChild.getParent())&&complexityTransitionParent.getParentComplexity()==complexityTransitionChild.getParentComplexity()) {
+					continue;
+				}
+				
+				//System.out.println(checkIfChildIsComplexityTransition(complexityTransitionParent, complexityTransitionChild.getParent(), complexityTransitionChild.getParentComplexity()));
 					if(checkIfChildIsComplexityTransition(complexityTransitionParent, complexityTransitionChild.getParent(), complexityTransitionChild.getParentComplexity())) {
 						complexityTransitionParent.getChildList().add(complexityTransitionChild);
 						complexityTransitionParent.setChildrenComplexity(complexityTransitionChild.getParentComplexity());
+					}else if(checkIfNewChildComplexityTransition(complexityTransitionParent, complexityTransitionChild.getParent(), complexityTransitionChild.getParentComplexity())) {
+						ComplexityTransition complexityTransition=new ComplexityTransition();
+						complexityTransition.setParent(complexityTransitionParent.getParent());
+						complexityTransition.setParentComplexity(complexityTransitionParent.getParentComplexity());
+						complexityTransition.getChildList().add(complexityTransitionChild);
+						complexityTransition.setChildrenComplexity(complexityTransitionChild.getParentComplexity());
+						iter.add(complexityTransition);
+						iterChild.add(complexityTransition);
 					}
 				}
 			}
-		}
+		
+	
 		List<ComplexityTransition> complexityTransitionsForWDPB=new ArrayList<ComplexityTransition>();
 		for (ComplexityTransition complexityTransition : complexityTransitions) {
 			if(!complexityTransition.getChildList().isEmpty()) {
@@ -47,7 +69,11 @@ public class WDPBLoopExtractor {
 	}
 	
 	private boolean checkIfChildIsComplexityTransition(ComplexityTransition transition,String child,double complexity) {
-		return child.indexOf(transition.getParent())!=-1&&child.split(",").length==transition.getParent().split(",").length+1&&complexity>transition.getParentComplexity()&&(transition.getChildrenComplexity()!=0?complexity==transition.getChildrenComplexity():true);
+		//System.out.println(transition.getParent()+" CHILD "+child);
+		return child.indexOf(transition.getParent())!=-1&&child.split("\\s+").length==transition.getParent().split("\\s+").length+1&&complexity>transition.getParentComplexity()&&(transition.getChildrenComplexity()!=0?complexity==transition.getChildrenComplexity():true);
+	}
+	private boolean checkIfNewChildComplexityTransition(ComplexityTransition transition,String child,double complexity) {
+		return child.indexOf(transition.getParent())!=-1&&child.split("\\s+").length==transition.getParent().split("\\s+").length+1&&complexity>transition.getParentComplexity()&&(transition.getChildrenComplexity()!=0?complexity!=transition.getChildrenComplexity():true);
 	}
 	public static void main(String[] args) throws IOException, InterruptedException, CallGraphException {
 		new XSLTTransformer().transform();

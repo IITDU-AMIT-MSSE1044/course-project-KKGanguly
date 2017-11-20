@@ -20,39 +20,47 @@ public class AverageCostCalculator {
 	private List<String> workloadLog = new ArrayList<String>();
 	private static final String LOG = "logTime.txt";
 	private static final String WORKLOADLOG = "workload.txt";
+	private double totalCost;
+	private static final String REALCOSTLOG = "results/costs.txt";
 	private String currentLogLine;
 	private Map<String, Double> costModel=new HashMap<String, Double>();
+	private Map<String, Double> totalCostModel=new HashMap<String, Double>();
+	private static final String TOTALCOSTLOG = "logTotalTime.txt";
+	private int numRows;
 	private List<CostModel> costs=new ArrayList<CostModel>();
 	public AverageCostCalculator(CallGraph callGraph) {
 		super();
 		this.callGraph = callGraph;
 	}
-
+	
 	public List<CostModel> getCost() {
 		readWorkloadLog();
 		String content="";
+		FileUtil fileUtilCoverage=FileUtil.getFileUtil(REALCOSTLOG);
+		fileUtilCoverage.makeWholePath();
+		fileUtilCoverage.clearFile();
+		fileUtilCoverage.appendFile("context,total_cost,contextwise_cost,percentage");
 		Iterator<String> iterator=workloadLog.iterator();
 		try {
 			BufferedReader bufferedReader=new BufferedReader(new FileReader(new File(LOG)));
 			while((content=bufferedReader.readLine())!=null) {
 					String logEntry = content;
 					// needs customization support
-					String workload = iterator.hasNext()?iterator.next():"";
 					for (Function function : callGraph.getFunctions()) {
 						currentLogLine = new String(logEntry);
 						for (ComplexityModelData complexityModelData : function.getComplexityModelDatas()) {
 							double averageCost = findExecutionCostUnderContext(currentLogLine,
 									complexityModelData.getCallingContext(), function);
-							List<Double> workloads = new ArrayList<Double>();
-							workloads.add(Double.valueOf(workload));
-							String context=complexityModelData.getCallingContextAsString().trim();
+							String context=complexityModelData.getCallingContextAsString().trim()+" "+function;
 							if(!costModel.containsKey(context)) {
 								costModel.put(context, averageCost);
+								totalCostModel.put(context, totalCost);
 							}
 							else {
-								costModel.put(context, (averageCost+costModel.get(context)/2.00));
+								costModel.put(context, (averageCost+costModel.get(context))/2.00);
+								totalCostModel.put(context,(totalCost+ totalCostModel.get(context)));
+								
 							}
-							
 							//complexityModelData.addWorkloadAndExecutionCount(workloads, invocationCount);
 							//System.out.println();
 						}
@@ -66,6 +74,16 @@ public class AverageCostCalculator {
 				model.setTime(costModel.get(context));
 				costs.add(model);
 			}
+			double cost=getTotalAverageCost();
+			for (String context : totalCostModel.keySet()) {
+				try {
+					double totalCostInContext=totalCostModel.get(context)/numRows;
+					fileUtilCoverage.apppendLargeFile(context+","+cost+","+totalCostInContext+","+(totalCostInContext/cost)+"\n");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			return costs;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -74,8 +92,17 @@ public class AverageCostCalculator {
 		
 		return null;
 	}
-
-
+	private double getTotalAverageCost() {
+		FileUtil fileUtil=FileUtil.getFileUtil(TOTALCOSTLOG);
+		String costs=fileUtil.readFile();
+		String[] lines=costs.split("\n");
+		double cost=0.0;
+		numRows=lines.length;
+		for (String line : lines) {
+			cost+=Double.valueOf(line.trim());
+		}
+		return numRows!=0?(cost/(double) numRows):0;
+	}
 	private void readWorkloadLog() {
 		FileUtil fileUtil = FileUtil.getFileUtil(WORKLOADLOG);
 		String content = fileUtil.readFile();
@@ -94,14 +121,27 @@ public class AverageCostCalculator {
 			if (callingContextFunction.equals(function)) {
 				caller = extracted;
 			}
-			extracted = extracted.substring(extracted.indexOf(startingString),
-					extracted.lastIndexOf(closingString) + closingString.length());
+			int indexOfClosingString=extracted.lastIndexOf(closingString);
+			try {
+				extracted = extracted.substring(extracted.indexOf(startingString),
+					indexOfClosingString + getClosingTagLength(indexOfClosingString, extracted));
+			}catch(Exception exception) {
+				return 0;
+			}
 		}
 		currentLogLine = currentLogLine.replace(caller, "");
 		currentLogLine = currentLogLine.replace("  ", " ");
 		return getCost(function.getClassName() + "," + function.getName(), extracted);
 	}
-
+	private int getClosingTagLength(int index,String line) {
+		int i;
+		for(i=index;i<line.length();i++) {
+			if(line.charAt(i)==' ') {
+				break;
+			}
+		}
+		return i-index;
+	}
 	private double getCost(String subString, String string) {
 		Pattern pattern = Pattern.compile(subString+":"+"[0-9]+");
 		Pattern costPattern = Pattern.compile("[0-9]+");
@@ -122,8 +162,10 @@ public class AverageCostCalculator {
 			}
 			j++;
 		}
+		totalCost=cost;
 		return j!=0?(cost/(double)j):0.0;
 	}
+	
 	public static void main(String[] args) throws IOException, InterruptedException, CallGraphException {
 		new XSLTTransformer().transform();
 		CallGraph callGraph = new StaticCallGraphExtractor().extractCallGraph();

@@ -5,7 +5,7 @@ import util.FileUtil;
 public class StaticCallGraphExtractor implements CallGraphExtractor {
 	private static final String LOG = "logs/callprofile.txt";
 	private static final String ROOTNAME = "run";
-	private static final String ROOTCLASSNAME = "Executor";
+	private static final String ROOTCLASSNAME = "NotePadExecutor";
 	private CallGraph callGraph = new CallGraph();
 	private BlackListedFunctions BlackListedFunctions = new BlackListedFunctions();
 

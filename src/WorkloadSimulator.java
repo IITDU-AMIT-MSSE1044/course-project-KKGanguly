@@ -14,6 +14,7 @@ public class WorkloadSimulator {
 		fileUtilTime.clearFile();
 		for (int i = 10; i < 300; i += 10) {
 			new Executor(i).run();
+			
 			GlobalInstrumentationString.contentBuffer.append("\n");
 			GlobalInstrumentationString.contentBufferWithCost.append("\n");
 			if(i%20==0) {

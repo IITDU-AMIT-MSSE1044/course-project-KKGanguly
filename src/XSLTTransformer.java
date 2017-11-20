@@ -6,7 +6,7 @@ import org.apache.commons.io.FileUtils;
 import util.FileUtil;
 
 public class XSLTTransformer {
-	private String sourceDirectoryPath="src\\sample";
+	private String sourceDirectoryPath="src\\secondsample";
 	private String xsltResourcePath="src\\xslt";
 	private File source;
 	private File destination;
