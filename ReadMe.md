@@ -9,7 +9,7 @@ The whole workflow is shown in the following figure.
 
 ![Alt text](https://github.com/IITDU-AMIT-MSSE1044/course-project-KKGanguly/blob/master/src/flow.jpg "Flow Diagram")
 
-In the methodlogy, the training algorithm is single attribute. However, a multiparameter model is still necessary for more accurate prediction. This mutiparameter training model has been incorporated with the project. That is, **the work us extended by considering multiple parameters for training.** It has been seen that incorporating the multiparameter model results in better cost coverage.
+In the methodlogy, the training algorithm is single attribute. However, a multiparameter model is still necessary for more accurate prediction. This mutiparameter training model has been incorporated with the project. That is, **the work is extended by considering multiple parameters for training.** It has been seen that incorporating the multiparameter model results in better cost coverage.
 
 ## Instruction to Use
 
