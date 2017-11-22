@@ -32,7 +32,7 @@ The prerequisites and using the technique by execution of the code is explained 
 * The resuts including WDPB loop, cost coverage, total cost are generated into the corresponding results directory
 
 ## Data
-The data is a simulation of selected word color change of Notepad++. It is available in the [secondsample](https://github.com/IITDU-AMIT-MSSE1044/course-project-KKGanguly/tree/master/src/secondsample) directory. It contains a single WDPB loop in the [NotepadSimulation.java](https://github.com/IITDU-AMIT-MSSE1044/course-project-KKGanguly/blob/master/src/secondsample/NotePadSimulation.java) file.    
+The data is a simulation of selected word color change of Notepad++. It is available in the [secondsample](https://github.com/IITDU-AMIT-MSSE1044/course-project-KKGanguly/tree/master/src/secondsample) directory. It contains a single WDPB loop in the [NotepadSimulation.java](https://github.com/IITDU-AMIT-MSSE1044/course-project-KKGanguly/blob/master/src/secondsample/NotePadSimulation.java) file. The generated results from the base paper is in the [results-single](https://github.com/IITDU-AMIT-MSSE1044/course-project-KKGanguly/tree/master/results-single) directory. The results from the extension of this work is in the [results-multiple](https://github.com/IITDU-AMIT-MSSE1044/course-project-KKGanguly/tree/master/results-multiple).  
 
 ## Author
 
