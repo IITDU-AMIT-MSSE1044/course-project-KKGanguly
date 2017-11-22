@@ -10,12 +10,17 @@ The whole workflow is shown in the following figure.
 ![Alt text](https://github.com/IITDU-AMIT-MSSE1044/course-project-KKGanguly/blob/master/src/flow.jpg "Flow Diagram")
 
 In the methodlogy, the training algorithm is single attribute. However, a multiparameter model is still necessary for more accurate prediction. This mutiparameter training model has been incorporated with the project. It has been seen that incorporating the multiparameter model results in better cost coverage.
+
+## Instruction to Use
+
+The prerequisites and using the technique by execution of the code is explained below. The input is a source code directory, which is fixed in the code as input data and the output is detected WDPB loops and coverage analysis.
+
 ### Prerequisites
+
 * [srcML](http://www.srcml.org/) - Converts source code to XML and vice-versa
 * [R](https://www.r-project.org/) - For Data Analysis (Training and Prediction)
 * [Eclipse](https://www.eclipse.org/) - IDE for running Java Source Code
 * [JDK8](http://www.oracle.com/technetwork/java/javase/downloads/index.html) - Java Development Kit (Version 8 has been used)
-
 
 ### Executing the Code
 
@@ -26,9 +31,18 @@ In the methodlogy, the training algorithm is single attribute. However, a multip
 * Now rerun the source code. For running multiparameter mode input 3 and for running single parameter model input 4
 * The resuts including WDPB loop, cost coverage, total cost are generated into the corresponding results directory
 
-## Authors
+## Data
+The data is a simulation of selected word color change of Notepad++. It is available in the [secondsample](https://github.com/IITDU-AMIT-MSSE1044/course-project-KKGanguly/tree/master/src/secondsample) directory. It contains a single WDPB loop in the [NotepadSimulation.java](https://github.com/IITDU-AMIT-MSSE1044/course-project-KKGanguly/blob/master/src/secondsample/NotePadSimulation.java) file.    
+
+## Author
 
 * **Kishan Kumar Ganguly** - *Initial work* - [KKGanguly](https://github.com/KKGanguly)
+
+## References 
+
+* Xiao, Xusheng, et al. "Context-sensitive delta inference for identifying workload-dependent performance bottlenecks." Proceedings of the 2013 International Symposium on Software Testing and Analysis. ACM, 2013.
+* Collard, Michael L., Michael J. Decker, and Jonathan I. Maletic. "Lightweight transformation and fact extraction with the srcML toolkit." Source Code Analysis and Manipulation (SCAM), 2011 11th IEEE International Working Conference on. IEEE, 2011.
+* Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. The elements of statistical learning. Vol. 1. New York: Springer series in statistics, 2001.
 
 
 
